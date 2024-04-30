@@ -67,7 +67,7 @@ def search(client, message):
         'query' : query,
         'l' : ''
     }
-
+    print(f"{data}")
     res = requests.post('https://subscene.com/subtitles/searchbytitle', data=data)
     soup = bs(res.text, 'html.parser')
     search_result = soup.find('div', {'class': 'search-result'})
