@@ -61,7 +61,6 @@ def uptime(client, message):
 
 
 @app.on_message(filters.text)
-@app.on_message(filters.text)
 def search(client, message):
     query = message.text.replace(" ", "+")
     data = {
@@ -100,7 +99,7 @@ def search(client, message):
                          parse_mode=enums.ParseMode.MARKDOWN,
                          reply_markup=reply_markup)
     else:
-        # If no search results found, handle it appropriately (e.g., print an error message)
+        # Print an error message if no search results found
         app.send_message(chat_id=message.chat.id,
                          text="No search results found. Please try a different query.")
 
