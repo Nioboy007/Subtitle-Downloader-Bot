@@ -70,7 +70,12 @@ def search(client, message):
 
     res = requests.post('https://subscene.com/subtitles/searchbytitle', data=data)
     soup = bs(res.text, 'html.parser')
-    results = soup.find('div', {'class': 'search-result'}).find_all('div', {'class': 'exact'})
+    search_result = soup.find('div', {'class': 'search-result'})
+    if search_result:
+        print(search_result.text.strip())
+    else:
+        print("Search result not found.")
+
     kb = []
     i = 0
     l = 0
