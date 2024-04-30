@@ -38,7 +38,7 @@ def start(client,message):
                                                         "__**Developer :**__ __@JayBeeDev__\n"
                                                         "__**Language :**__ __Python__\n"
                                                         "__**Framework :**__ __🔥 Pyrogram__",
-                     parse_mode='md',
+                     parse_mode=enums.ParseMode.MARKDOWN,
                      reply_markup=reply_markup)
 
 @app.on_message(filters.command('help'))
@@ -49,7 +49,7 @@ def help(client,message):
     message.reply_text(reply_to_message_id= message.message_id,text=f"Send me any Movie/Series name and I will -\n"
     f"__ * Search for it on `Subscene.com`\n"
     f" * Let you choose your preferable language.\n"
-    f" * Download the subtitle, unzip and upload in `.srt/.ass` format__", parse_mode='md', reply_markup=reply_markup)
+    f" * Download the subtitle, unzip and upload in `.srt/.ass` format__", parse_mode=enums.ParseMode.MARKDOWN, reply_markup=reply_markup)
 
 
 @app.on_message(filters.command('uptime'))
@@ -57,7 +57,7 @@ def uptime(client, message):
     timecheck = timedelta(seconds=int(time.time()))
     uptime = timecheck - timestarted
     app.send_message(chat_id=message.from_user.id, text=f"__**Uptime :**__ __{uptime}__",
-                     parse_mode='md')
+                     parse_mode=enums.ParseMode.MARKDOWN)
 
 
 @app.on_message(filters.text)
@@ -93,7 +93,7 @@ def search(client, message):
     app.send_message(chat_id=message.chat.id,
                      text=f"__Showing Result for **{query}**\n"
                      f"Choose your desired Movie/Series:__",
-                     parse_mode='md',
+                     parse_mode=enums.ParseMode.MARKDOWN,
                      reply_markup=reply_markup)
 
 
