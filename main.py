@@ -3,7 +3,7 @@
 # Encoding = 'utf-8'
 # Fork and Deploy, do not modify this repo and claim it yours
 # For collaboration mail me at dev.jaybee@gmail.com
-
+from pyrogram import enums
 
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -26,6 +26,8 @@ app = Client("JayBeeSubtitleDL", bot_token=bot_token, api_id=api, api_hash=hash,
 cuttly = os.environ.get('CUTTLY_API')
 
 timestarted = timedelta(seconds=int(time.time()))
+
+md = enums.ParseMode.MARKDOWN
 
 
 @app.on_message(filters.command('start'))
