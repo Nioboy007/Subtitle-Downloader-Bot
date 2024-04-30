@@ -46,7 +46,7 @@ def help(client,message):
     url = [[InlineKeyboardButton(f"PayPal Me ❤️", url=f"https://paypal.me/JayBeeDev")],
            [InlineKeyboardButton(f"Buy Me A Coffee ☕️", url=f"https://buymeacoffee.com/JayBee.Dev")]]
     reply_markup = InlineKeyboardMarkup(url)
-    message.reply_text(reply_to_message_id= message.message_id,text=f"Send me any Movie/Series name and I will -\n"
+    message.reply_text(reply_to_message_id=message.id,text=f"Send me any Movie/Series name and I will -\n"
     f"__ * Search for it on `Subscene.com`\n"
     f" * Let you choose your preferable language.\n"
     f" * Download the subtitle, unzip and upload in `.srt/.ass` format__", parse_mode=enums.ParseMode.MARKDOWN, reply_markup=reply_markup)
