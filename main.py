@@ -181,7 +181,7 @@ def chooselang(client, callback_query):
     app.edit_message_text(chat_id=callback_query.message.chat.id,
                           message_id=callback_query.message.message_id,
                           text=f"__Select a Subtitle Language__",
-                          parse_mode='md',
+                          parse_mode=enums.ParseMode.MARKDOWN,
                           reply_markup=reply_markup)
 
 
@@ -219,14 +219,14 @@ def langset(client, callback_query):
         app.edit_message_text(chat_id=callback_query.message.chat.id,
                               message_id=callback_query.message.message_id,
                               text=f"__Select a Subtitle__",
-                              parse_mode='md',
+                              parse_mode=enums.ParseMode.MARKDOWN,
                               reply_markup=reply_markup)
     except:
         app.edit_message_text(chat_id=callback_query.message.chat.id,
                               message_id=callback_query.message.message_id,
                               text=f"__Sorry no subtitle available for that specific language!\n"
                               f"Try another one!__",
-                              parse_mode='md')
+                              parse_mode=enums.ParseMode.MARKDOWN)
 
 
 @app.on_callback_query(filters.regex('DTL'))
@@ -262,7 +262,7 @@ def subdetails(client, callback_query):
     app.send_photo(caption=f'__{subtext}__',
                    photo=poster,
                    chat_id=callback_query.message.chat.id,
-                   parse_mode='md',
+                   parse_mode=enums.ParseMode.MARKDOWN,
                    reply_markup=reply_markup)
 
 
@@ -346,7 +346,7 @@ def nextres(client, callback_query):
     a = app.edit_message_text(chat_id=callback_query.message.chat.id,
                               message_id=callback_query.message.message_id,
                               text=f"__Select a Subtitle__",
-                              parse_mode='md',
+                              parse_mode=enums.ParseMode.MARKDOWN,
                               reply_markup=reply_markup)
 
 @app.on_callback_query(filters.regex('PRV'))
@@ -389,7 +389,7 @@ def prevres(client, callback_query):
     app.edit_message_text(chat_id=callback_query.message.chat.id,
                               message_id=callback_query.message.message_id,
                               text=f"__Select a Subtitle__",
-                              parse_mode='md',
+                              parse_mode=enums.ParseMode.MARKDOWN,
                               reply_markup=reply_markup)
 
 app.run()
