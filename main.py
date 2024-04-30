@@ -61,40 +61,48 @@ def uptime(client, message):
 
 
 @app.on_message(filters.text)
+@app.on_message(filters.text)
 def search(client, message):
     query = message.text.replace(" ", "+")
     data = {
-        'query' : query,
-        'l' : ''
+        'query': query,
+        'l': ''
     }
 
     res = requests.post('https://subscene.com/subtitles/searchbytitle', data=data)
     soup = bs(res.text, 'html.parser')
-    results = soup.find('div', {'class': 'search-result'}).find_all('div', {'class': 'title'})
-    kb = []
-    i = 0
-    l = 0
-    for sub in results:
-        if l < 10:
-            sublink = sub.find('a').attrs['href'].split('/')[-1]
-            subtitlename = sub.find('a').text
-            if len(sublink)<64:
-                kb.append([InlineKeyboardButton(f"{subtitlename}", callback_data=f'LANG*{sublink}')])
-                i += 1
+
+    # Add a conditional check to ensure the search result div exists
+    search_result = soup.find('div', {'class': 'search-result'})
+    if search_result:
+        results = search_result.find_all('div', {'class': 'title'})
+        kb = []
+        i = 0
+        l = 0
+        for sub in results:
+            if l < 10:
+                sublink = sub.find('a').attrs['href'].split('/')[-1]
+                subtitlename = sub.find('a').text
+                if len(sublink) < 64:
+                    kb.append([InlineKeyboardButton(f"{subtitlename}", callback_data=f'LANG*{sublink}')])
+                    i += 1
+                else:
+                    pass
             else:
                 pass
-
-        else:
-            pass
-        l += 1
-    if len(results) > i:
-        kb.append([InlineKeyboardButton(f"Next ⏭", callback_data=f'SRCNX*{i}*{query}')])
-    reply_markup = InlineKeyboardMarkup(kb)
-    app.send_message(chat_id=message.chat.id,
-                     text=f"__Showing Result for **{query}**\n"
-                     f"Choose your desired Movie/Series:__",
-                     parse_mode=enums.ParseMode.MARKDOWN,
-                     reply_markup=reply_markup)
+            l += 1
+        if len(results) > i:
+            kb.append([InlineKeyboardButton(f"Next ⏭", callback_data=f'SRCNX*{i}*{query}')])
+        reply_markup = InlineKeyboardMarkup(kb)
+        app.send_message(chat_id=message.chat.id,
+                         text=f"__Showing Result for **{query}**\n"
+                              f"Choose your desired Movie/Series:__",
+                         parse_mode=enums.ParseMode.MARKDOWN,
+                         reply_markup=reply_markup)
+    else:
+        # If no search results found, handle it appropriately (e.g., print an error message)
+        app.send_message(chat_id=message.chat.id,
+                         text="No search results found. Please try a different query.")
 
 
 @app.on_callback_query(filters.regex('SRCNX'))
