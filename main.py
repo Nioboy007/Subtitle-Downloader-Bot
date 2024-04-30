@@ -73,6 +73,7 @@ def search(client, message):
 
     # Add a conditional check to ensure the search result div exists
     search_result = soup.find('div', {'class': 'search-result'})
+    print(f"{search_result}")
     if search_result:
         results = search_result.find_all('div', {'class': 'title'})
         kb = []
@@ -98,11 +99,7 @@ def search(client, message):
                               f"Choose your desired Movie/Series:__",
                          parse_mode=enums.ParseMode.MARKDOWN,
                          reply_markup=reply_markup)
-    else:
-        # Print an error message if no search results found
-        app.send_message(chat_id=message.chat.id,
-                         text="No search results found. Please try a different query.")
-
+    
 
 @app.on_callback_query(filters.regex('SRCNX'))
 def searchnext(client, callback_query):
