@@ -75,6 +75,8 @@ def search(client, message):
         print(search_result.text.strip())
     else:
         print("Search result not found.")
+        
+    results = soup.find('div', {'class': 'search-result'}).find_all('div', {'class': 'title'})
 
     kb = []
     i = 0
